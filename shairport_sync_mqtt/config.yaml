@@ -26,7 +26,7 @@ options:
   mqtt_topic_prefix: "shairport"
 schema:
   log_level: "list(debug|info|warn|error)"
-  audio_device: "str"
+  audio_device: "device_audio?"
   mqtt_enabled: "bool"
   mqtt_host: "str"
   mqtt_port: "int"
