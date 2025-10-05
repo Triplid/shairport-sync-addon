@@ -1,9 +1,12 @@
-# Указываем базовый образ для Home Assistant (ARM для HA Green)
+# Базовый образ для Home Assistant (ARM для HA Green)
 ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
 FROM $BUILD_FROM
 
-# Устанавливаем зависимости
+# Устанавливаем зависимости, включая autoconf и automake
 RUN apk add --no-cache \
+    autoconf \
+    automake \
+    libtool \
     avahi \
     avahi-compat-libdns_sd \
     soxr \
@@ -14,7 +17,6 @@ RUN apk add --no-cache \
     cmake \
     libconfig-dev \
     openssl-dev \
-    libevent-dev \
     mosquitto-dev
 
 # Компилируем Shairport Sync с поддержкой MQTT
