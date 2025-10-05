@@ -2,8 +2,12 @@
 # Запускаем D-Bus
 dbus-daemon --system --nofork &
 
+# Даём D-Bus время на запуск
+sleep 2
+
 # Запускаем avahi-daemon
 avahi-daemon --no-drop-root --no-chroot --no-proc-title -D
+sleep 2
 
 # Создаём конфиг, если отсутствует
 CONFIG_PATH=/config/shairport-sync.conf
@@ -28,7 +32,7 @@ mqtt = {
 };
 alsa = {
     enabled = "yes";
-    device = "${DEVICE:-hw:0,0}";
+    device = "${DEVICE:-hw:2,0}";  # USB-аудиокарта
     mixer_control_name = "PCM";
 };
 EOF
