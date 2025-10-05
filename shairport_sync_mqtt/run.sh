@@ -21,11 +21,11 @@ diagnostics = {
 
 mqtt = {
     enabled = "yes";
-    hostname = "192.168.0.123";
+    hostname = "192.168.0.123";  
     port = 1883;
     username = "tripl";
     password = "Fylhtq3120";
-    client_id = "shairport-1";
+    client_id = "shairport_ha_green";
     topic = "shairport";
     publish_raw = "no";
     publish_parsed = "yes";
