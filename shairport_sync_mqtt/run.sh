@@ -1,5 +1,8 @@
 #!/usr/bin/with-contenv bashio
-# Запускаем avahi-daemon в фоновом режиме
+# Запускаем D-Bus
+dbus-daemon --system --nofork &
+
+# Запускаем avahi-daemon
 avahi-daemon --no-drop-root --no-chroot --no-proc-title -D
 
 # Создаём конфиг, если отсутствует
