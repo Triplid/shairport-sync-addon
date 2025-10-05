@@ -15,6 +15,10 @@ RUN apk add --no-cache \
     alsa-lib \
     alsa-lib-dev \
     alsa-utils \
+    # Добавьте следующие пакеты:
+    alsa-plugins \
+    alsa-plugins-pulse \
+    alsa-ucm-conf \
     git \
     build-base \
     cmake \
