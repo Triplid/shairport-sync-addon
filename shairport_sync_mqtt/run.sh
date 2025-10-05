@@ -9,7 +9,7 @@ sleep 2
 avahi-daemon --no-drop-root --no-chroot --no-proc-title -D
 sleep 2
 
-# Создаём конфиг, если отсутствует
+# Используем существующий конфиг
 CONFIG_PATH=/config/shairport-sync.conf
 if [[ ! -f $CONFIG_PATH ]]; then
   echo "No config file found, creating default"
@@ -22,17 +22,17 @@ diagnostics = {
 };
 mqtt = {
     enabled = "yes";
-    mqtt_host = "${MQTT_HOST:-core-mosquitto}";
-    mqtt_port = ${MQTT_PORT:-1883};
-    mqtt_uid = "${MQTT_USERNAME:-mqtt_user}";
-    mqtt_pw = "${MQTT_PASSWORD:-mqtt_pass}";
+    mqtt_host = "core-mosquitto";
+    mqtt_port = 1883;
+    mqtt_uid = "tripl";
+    mqtt_pw = "Fylhtq3120";
     mqtt_id = "shairport-1";
-    mqtt_topic_prefix = "${MQTT_TOPIC_PREFIX:-shairport}";
+    mqtt_topic_prefix = "shairport";
     sessioncontrol_topic = "sessioncontrol";
 };
 alsa = {
     enabled = "yes";
-    device = "${DEVICE:-hw:2,0}";  # USB-аудиокарта
+    device = "hw:2,0";
     mixer_control_name = "PCM";
 };
 EOF
