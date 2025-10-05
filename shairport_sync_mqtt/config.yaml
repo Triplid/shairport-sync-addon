@@ -1,6 +1,6 @@
 name: "Shairport Sync MQTT"
-description: "Shairport Sync with MQTT for AirPlay (full audio + MQTT support)"
-version: "1.0.9"
+description: "Shairport Sync with MQTT for AirPlay (full audio + JSON support)"
+version: "1.1.1"
 slug: "shairport_sync_mqtt"
 init: false
 arch:
