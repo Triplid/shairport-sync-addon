@@ -21,15 +21,15 @@ diagnostics = {
 
 mqtt = {
     enabled = "yes";
-    hostname = "192.168.0.123";  
+    hostname = "192.168.0.123";    # адрес брокера
     port = 1883;
     username = "tripl";
     password = "Fylhtq3120";
     client_id = "shairport_ha_green";
-    topic = "shairport";
+    topic = "shairport/sync";       # важно: чтобы HACS-плеер видел JSON
     publish_raw = "no";
     publish_parsed = "yes";
-    publish_cover = "no";
+    publish_cover = "yes";          # можно обложку, HACS умеет
     publish_volume = "yes";
     sessioncontrol_topic = "sessioncontrol";
 };
