@@ -2,11 +2,12 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
 FROM $BUILD_FROM
 
-# Устанавливаем зависимости, включая autoconf и automake
+# Устанавливаем зависимости, включая popt-dev
 RUN apk add --no-cache \
     autoconf \
     automake \
     libtool \
+    popt-dev \
     avahi \
     avahi-compat-libdns_sd \
     soxr \
