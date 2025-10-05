@@ -1,6 +1,6 @@
 name: "Shairport Sync MQTT"
 description: "Shairport Sync with MQTT for AirPlay"
-version: "1.0.10"
+version: "1.0.11"
 slug: "shairport_sync_mqtt"
 init: false
 arch:
