@@ -1,11 +1,16 @@
 #!/usr/bin/with-contenv bashio
-#!/usr/bin/env bash
+# Запускаем avahi-daemon в фоновом режиме
+avahi-daemon --no-drop-root --no-chroot --no-proc-title -D
+
+# Создаём конфиг, если отсутствует
 CONFIG_PATH=/config/shairport-sync.conf
 if [[ ! -f $CONFIG_PATH ]]; then
   echo "No config file found, creating default"
   cat > $CONFIG_PATH << EOF
 general = {
     name = "My AirPlay Receiver";
+};
+diagnostics = {
     log_verbosity = 0;
 };
 mqtt = {
@@ -25,4 +30,5 @@ alsa = {
 };
 EOF
 fi
+# Запускаем Shairport Sync
 exec shairport-sync -c $CONFIG_PATH
