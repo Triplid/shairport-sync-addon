@@ -1,6 +1,6 @@
 name: "Shairport Sync MQTT"
 description: "Shairport Sync with MQTT for AirPlay"
-version: "1.0.4"  # Было 1.0.3
+version: "1.0.6"  # Было 1.0.5
 slug: "shairport_sync_mqtt"
 init: false
 arch:
@@ -17,7 +17,7 @@ map:
   - config:rw
 options:
   log_level: "info"
-  device: "hw:2,0"  # USB-аудиокарта
+  device: "hw:2,0"
   mqtt_enabled: true
   mqtt_host: "core-mosquitto"
   mqtt_port: 1883
