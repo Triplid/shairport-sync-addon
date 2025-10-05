@@ -1,10 +1,10 @@
 name: "Shairport Sync MQTT"
 description: "Shairport Sync with MQTT for AirPlay"
-version: "1.0.0"
+version: "1.0.1"  # Было 1.0.0
 slug: "shairport_sync_mqtt"
 init: false
 arch:
-  - armv7  # Для HA Green
+  - armv7
   - aarch64
   - amd64
 build: .
