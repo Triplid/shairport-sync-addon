@@ -21,12 +21,16 @@ diagnostics = {
 
 mqtt = {
     enabled = "yes";
-    mqtt_host = "core-mosquitto";
-    mqtt_port = 1883;
-    mqtt_uid = "tripl";
-    mqtt_pw = "Fylhtq3120";
-    mqtt_id = "shairport-1";
-    mqtt_topic_prefix = "shairport";
+    hostname = "192.168.0.123";
+    port = 1883;
+    username = "tripl";
+    password = "Fylhtq3120";
+    client_id = "shairport-1";
+    topic = "shairport";
+    publish_raw = "no";
+    publish_parsed = "yes";
+    publish_cover = "no";
+    publish_volume = "yes";
     sessioncontrol_topic = "sessioncontrol";
 };
 
