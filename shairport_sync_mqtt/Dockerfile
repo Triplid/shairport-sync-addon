@@ -1,41 +1,30 @@
-# Базовый образ для Home Assistant (ARM для HA Green)
-ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
-FROM $BUILD_FROM
+# Используем готовый образ Shairport Sync с поддержкой ALSA и MQTT
+FROM mikebrady/shairport-sync:latest
 
-# Устанавливаем зависимости, включая dbus
+# Устанавливаем зависимости для MQTT, ALSA и Avahi
 RUN apk add --no-cache \
-    autoconf \
-    automake \
-    libtool \
-    popt-dev \
+    dbus \
+    dbus-libs \
     avahi \
     avahi-compat-libdns_sd \
     avahi-dev \
-    dbus \
-    soxr \
+    mosquitto-libs \
+    mosquitto-dev \
     alsa-lib \
     alsa-lib-dev \
     alsa-utils \
-    git \
-    build-base \
-    cmake \
-    libconfig-dev \
-    openssl-dev \
-    mosquitto-dev
+    soxr \
+    udev \
+    libconfig-dev
 
 # Создаём директории для Avahi и D-Bus
 RUN mkdir -p /var/run/dbus && \
     mkdir -p /var/run/avahi-daemon && \
     chown avahi:avahi /var/run/avahi-daemon
 
-# Компилируем Shairport Sync с поддержкой MQTT
-RUN git clone https://github.com/mikebrady/shairport-sync.git /tmp/shairport-sync && \
-    cd /tmp/shairport-sync && \
-    autoreconf -fi && \
-    ./configure --sysconfdir=/etc --with-ssl=openssl --with-alsa --with-mqtt-client --with-avahi && \
-    make && \
-    make install && \
-    rm -rf /tmp/shairport-sync
+# Инициализируем udev для обнаружения аудиоустройств
+RUN udevadm trigger --action=add /dev/snd && \
+    alsactl init || echo "ALSA init failed: $?"
 
 # Копируем скрипт запуска
 COPY run.sh /run.sh
