@@ -1,26 +1,33 @@
 #!/usr/bin/with-contenv bashio
+# Проверяем права /dev/snd
+echo "Checking /dev/snd permissions:"
+ls -l /dev/snd
+
 # Запускаем D-Bus
+echo "Starting D-Bus..."
 dbus-daemon --system --nofork &
 sleep 2
+echo "D-Bus status: $?"
 
 # Запускаем avahi-daemon
+echo "Starting Avahi..."
 avahi-daemon --no-drop-root --no-chroot --no-proc-title -D || echo "Avahi failed: $?"
 sleep 2
 
 # Проверяем ALSA устройства
-echo "Available ALSA devices:"
-aplay -l
+echo "Available ALSA devices before init:"
+aplay -l || echo "aplay failed: $?"
 echo "ALSA init status:"
 alsactl init || echo "ALSA init failed: $?"
-echo "ALSA devices after init:"
-aplay -l
+echo "Available ALSA devices after init:"
+aplay -l || echo "aplay failed: $?"
 
 # Проверяем конфиг
 CONFIG_PATH=/config/shairport-sync.conf
 echo "Using config file: $CONFIG_PATH"
-cat $CONFIG_PATH
-
-if [[ ! -f $CONFIG_PATH ]]; then
+if [[ -f $CONFIG_PATH ]]; then
+  cat $CONFIG_PATH
+else
   echo "No config file found, creating default"
   cat > $CONFIG_PATH << EOF
 general = {
@@ -46,5 +53,7 @@ alsa = {
 };
 EOF
 fi
+
 # Запускаем Shairport Sync с отладкой
+echo "Starting Shairport Sync..."
 exec shairport-sync -c $CONFIG_PATH -v
