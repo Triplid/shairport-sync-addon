@@ -2,7 +2,7 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
 FROM $BUILD_FROM
 
-# Устанавливаем зависимости, включая alsa-lib-dev
+# Устанавливаем зависимости, включая dbus
 RUN apk add --no-cache \
     autoconf \
     automake \
@@ -11,6 +11,7 @@ RUN apk add --no-cache \
     avahi \
     avahi-compat-libdns_sd \
     avahi-dev \
+    dbus \
     soxr \
     alsa-lib \
     alsa-lib-dev \
@@ -21,6 +22,11 @@ RUN apk add --no-cache \
     libconfig-dev \
     openssl-dev \
     mosquitto-dev
+
+# Создаём директории для Avahi и D-Bus
+RUN mkdir -p /var/run/dbus && \
+    mkdir -p /var/run/avahi-daemon && \
+    chown avahi:avahi /var/run/avahi-daemon
 
 # Компилируем Shairport Sync с поддержкой MQTT
 RUN git clone https://github.com/mikebrady/shairport-sync.git /tmp/shairport-sync && \
