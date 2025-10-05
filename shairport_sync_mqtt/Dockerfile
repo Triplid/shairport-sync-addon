@@ -1,7 +1,7 @@
-# Используем готовый образ Shairport Sync с поддержкой ALSA и MQTT
+# Use pre-built Shairport Sync image with ALSA and MQTT support
 FROM mikebrady/shairport-sync:latest
 
-# Устанавливаем зависимости для MQTT, ALSA и Avahi
+# Install dependencies for MQTT, ALSA, and Avahi
 RUN apk add --no-cache \
     dbus \
     dbus-libs \
@@ -18,18 +18,19 @@ RUN apk add --no-cache \
     udev \
     libconfig-dev
 
-# Создаём директории для Avahi и D-Bus
+# Create directories for Avahi and D-Bus
 RUN mkdir -p /var/run/dbus && \
     mkdir -p /var/run/avahi-daemon && \
+    addgroup -S avahi && adduser -S -D -G avahi avahi || echo "Avahi user already exists" && \
     chown avahi:avahi /var/run/avahi-daemon
 
-# Инициализируем udev и ALSA
+# Initialize udev and ALSA
 RUN udevadm trigger --action=add /dev/snd && \
     alsactl init || echo "ALSA init failed: $?"
 
-# Копируем скрипт запуска
+# Copy startup script
 COPY run.sh /run.sh
 RUN chmod a+x /run.sh
 
-# Запускаем Shairport Sync
+# Run Shairport Sync
 CMD ["/run.sh"]
