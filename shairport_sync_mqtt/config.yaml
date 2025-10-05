@@ -1,18 +1,15 @@
 name: "Shairport Sync MQTT"
-description: "Shairport Sync with MQTT for AirPlay (with full audio + MQTT support)"
+description: "Shairport Sync with MQTT for AirPlay (full audio + MQTT support)"
 version: "1.0.8"
 slug: "shairport_sync_mqtt"
 init: false
 arch:
-  - armv7
   - aarch64
-  - amd64
 startup: application
 boot: auto
 host_network: true
 audio: true
 udev: true
-privileged: true
 
 map:
   - config:rw
