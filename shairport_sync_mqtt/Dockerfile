@@ -15,16 +15,16 @@ RUN apk add --no-cache \
     alsa-lib \
     alsa-lib-dev \
     alsa-utils \
+    # Добавьте следующие пакеты:
     alsa-plugins \
-    libpulse \
+    alsa-plugins-pulse \
+    alsa-ucm-conf \
     git \
     build-base \
     cmake \
     libconfig-dev \
     openssl-dev \
-    mosquitto-dev \
-    mosquitto-libs
-
+    mosquitto-dev
 # Create avahi user and group if they don't exist
 RUN addgroup -S avahi 2>/dev/null || true && \
     adduser -S -D -G avahi avahi 2>/dev/null || true
