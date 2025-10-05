@@ -1,7 +1,7 @@
 # Используем готовый образ Shairport Sync с поддержкой ALSA и MQTT
 FROM mikebrady/shairport-sync:latest
 
-# Устанавливаем зависимости для MQTT, ALSA, Avahi и отладки
+# Устанавливаем зависимости для MQTT, ALSA и Avahi
 RUN apk add --no-cache \
     dbus \
     dbus-libs \
@@ -16,8 +16,7 @@ RUN apk add --no-cache \
     alsa-plugins \
     soxr \
     udev \
-    libconfig-dev \
-    nss-mdns
+    libconfig-dev
 
 # Создаём директории для Avahi и D-Bus
 RUN mkdir -p /var/run/dbus && \
