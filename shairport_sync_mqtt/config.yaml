@@ -4,12 +4,12 @@ version: "1.0.9"
 slug: "shairport_sync_mqtt"
 init: false
 arch:
+  - armv7
   - aarch64
+  - amd64
 startup: application
 boot: auto
 host_network: true
-audio: true
-udev: true
 devices:
   - /dev/snd:/dev/snd:rwm
 map:
