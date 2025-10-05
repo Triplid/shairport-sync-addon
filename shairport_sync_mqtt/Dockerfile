@@ -2,7 +2,7 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
 FROM $BUILD_FROM
 
-# Устанавливаем зависимости, включая dbus-libs
+# Устанавливаем зависимости
 RUN apk add --no-cache \
     autoconf \
     automake \
@@ -29,7 +29,7 @@ RUN mkdir -p /var/run/dbus && \
     mkdir -p /var/run/avahi-daemon && \
     chown avahi:avahi /var/run/avahi-daemon
 
-# Компилируем Shairport Sync с поддержкой MQTT
+# Компиляция Shairport Sync с MQTT
 RUN git clone https://github.com/mikebrady/shairport-sync.git /tmp/shairport-sync && \
     cd /tmp/shairport-sync && \
     autoreconf -fi && \
@@ -40,7 +40,6 @@ RUN git clone https://github.com/mikebrady/shairport-sync.git /tmp/shairport-syn
 
 # Копируем скрипт запуска
 COPY run.sh /run.sh
-RUN chmod a+x /run.sh
+RUN chmod +x /run.sh
 
-# Запускаем Shairport Sync
 CMD ["/run.sh"]
