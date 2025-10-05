@@ -1,39 +1,39 @@
-# Use pre-built Shairport Sync image with ALSA and MQTT support
-FROM mikebrady/shairport-sync:latest
-
-# Install dependencies for MQTT, ALSA, and Avahi
+FROM ghcr.io/home-assistant/aarch64-base:latest
 RUN apk add --no-cache \
-    dbus \
-    dbus-libs \
+    autoconf \
+    automake \
+    libtool \
+    popt-dev \
     avahi \
     avahi-compat-libdns_sd \
     avahi-dev \
-    mosquitto-libs \
-    mosquitto-dev \
+    dbus \
+    dbus-libs \
+    soxr \
     alsa-lib \
     alsa-lib-dev \
     alsa-utils \
     alsa-plugins \
-    soxr \
     udev \
-    libconfig-dev
-
-# Create avahi user and group if they don't exist
-RUN addgroup -S avahi 2>/dev/null || true && \
-    adduser -S -D -G avahi avahi 2>/dev/null || true
-
-# Create directories for Avahi and D-Bus
+    git \
+    build-base \
+    cmake \
+    libconfig-dev \
+    openssl-dev \
+    mosquitto-dev \
+    mosquitto-libs
+RUN git clone https://github.com/mikebrady/shairport-sync.git /tmp/shairport-sync && \
+    cd /tmp/shairport-sync && \
+    autoreconf -fi && \
+    ./configure --sysconfdir=/etc --with-ssl=openssl --with-alsa --with-mqtt-client --with-avahi && \
+    make && \
+    make install && \
+    rm -rf /tmp/shairport-sync
 RUN mkdir -p /var/run/dbus && \
     mkdir -p /var/run/avahi-daemon && \
     chown avahi:avahi /var/run/avahi-daemon
-
-# Initialize udev and ALSA
 RUN udevadm trigger --action=add /dev/snd && \
     alsactl init || echo "ALSA init failed: $?"
-
-# Copy startup script
 COPY run.sh /run.sh
 RUN chmod a+x /run.sh
-
-# Run Shairport Sync
 CMD ["/run.sh"]
