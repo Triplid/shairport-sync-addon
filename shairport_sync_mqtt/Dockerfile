@@ -21,7 +21,6 @@ RUN apk add --no-cache \
 # Create directories for Avahi and D-Bus
 RUN mkdir -p /var/run/dbus && \
     mkdir -p /var/run/avahi-daemon && \
-    addgroup -S avahi && adduser -S -D -G avahi avahi || echo "Avahi user already exists" && \
     chown avahi:avahi /var/run/avahi-daemon
 
 # Initialize udev and ALSA
