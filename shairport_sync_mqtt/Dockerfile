@@ -2,7 +2,7 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
 FROM $BUILD_FROM
 
-# Устанавливаем зависимости, включая avahi-dev
+# Устанавливаем зависимости, включая alsa-lib-dev
 RUN apk add --no-cache \
     autoconf \
     automake \
@@ -13,6 +13,7 @@ RUN apk add --no-cache \
     avahi-dev \
     soxr \
     alsa-lib \
+    alsa-lib-dev \
     alsa-utils \
     git \
     build-base \
