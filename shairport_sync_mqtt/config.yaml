@@ -23,7 +23,7 @@ options:
   mqtt_port: 1883
   mqtt_username: "tripl"
   mqtt_password: "Fylhtq3120"
-  mqtt_topic_prefix: "shairport"
+  mqtt_topic_prefix: "shairport/sync"
 
 schema:
   log_level: "list(debug|info|warn|error)"
