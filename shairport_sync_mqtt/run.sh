@@ -1,7 +1,12 @@
 #!/usr/bin/with-contenv bashio
 # Проверяем права /dev/snd
 echo "Checking /dev/snd permissions:"
-ls -l /dev/snd
+ls -l /dev/snd || echo "Failed to list /dev/snd: $?"
+
+# Проверяем наличие shairport-sync
+echo "Checking shairport-sync binary:"
+which shairport-sync || echo "shairport-sync not found: $?"
+shairport-sync --version || echo "shairport-sync version check failed: $?"
 
 # Запускаем D-Bus
 echo "Starting D-Bus..."
@@ -56,4 +61,4 @@ fi
 
 # Запускаем Shairport Sync с отладкой
 echo "Starting Shairport Sync..."
-exec shairport-sync -c $CONFIG_PATH -v
+exec shairport-sync -c $CONFIG_PATH -v || echo "Shairport Sync failed: $?"
