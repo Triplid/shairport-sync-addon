@@ -1,7 +1,7 @@
 # Используем готовый образ Shairport Sync с поддержкой ALSA и MQTT
 FROM mikebrady/shairport-sync:latest
 
-# Устанавливаем зависимости для MQTT, ALSA и Avahi
+# Устанавливаем зависимости для MQTT, ALSA, Avahi и отладки
 RUN apk add --no-cache \
     dbus \
     dbus-libs \
@@ -13,16 +13,18 @@ RUN apk add --no-cache \
     alsa-lib \
     alsa-lib-dev \
     alsa-utils \
+    alsa-plugins \
     soxr \
     udev \
-    libconfig-dev
+    libconfig-dev \
+    nss-mdns
 
 # Создаём директории для Avahi и D-Bus
 RUN mkdir -p /var/run/dbus && \
     mkdir -p /var/run/avahi-daemon && \
     chown avahi:avahi /var/run/avahi-daemon
 
-# Инициализируем udev для обнаружения аудиоустройств
+# Инициализируем udev и ALSA
 RUN udevadm trigger --action=add /dev/snd && \
     alsactl init || echo "ALSA init failed: $?"
 
