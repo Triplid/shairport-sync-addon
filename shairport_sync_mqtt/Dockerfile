@@ -1,8 +1,6 @@
-# Базовый образ для Home Assistant (ARM для HA Green)
 ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
 FROM $BUILD_FROM
 
-# Устанавливаем зависимости
 RUN apk add --no-cache \
     autoconf \
     automake \
@@ -24,12 +22,10 @@ RUN apk add --no-cache \
     openssl-dev \
     mosquitto-dev
 
-# Создаём директории для Avahi и D-Bus
 RUN mkdir -p /var/run/dbus && \
     mkdir -p /var/run/avahi-daemon && \
     chown avahi:avahi /var/run/avahi-daemon
 
-# Компиляция Shairport Sync с MQTT
 RUN git clone https://github.com/mikebrady/shairport-sync.git /tmp/shairport-sync && \
     cd /tmp/shairport-sync && \
     autoreconf -fi && \
@@ -38,7 +34,6 @@ RUN git clone https://github.com/mikebrady/shairport-sync.git /tmp/shairport-syn
     make install && \
     rm -rf /tmp/shairport-sync
 
-# Копируем скрипт запуска
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
