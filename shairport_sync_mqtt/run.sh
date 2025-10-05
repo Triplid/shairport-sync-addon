@@ -7,6 +7,10 @@ sleep 2
 avahi-daemon --no-drop-root --no-chroot --no-proc-title -D || echo "Avahi failed: $?"
 sleep 2
 
+# Проверяем ALSA устройства
+echo "Available ALSA devices:"
+aplay -l
+
 # Проверяем конфиг
 CONFIG_PATH=/config/shairport-sync.conf
 echo "Using config file: $CONFIG_PATH"
@@ -33,7 +37,7 @@ mqtt = {
 };
 alsa = {
     enabled = "yes";
-    device = "hw:2,0";
+    device = "plughw:2,0";
     mixer_control_name = "PCM";
 };
 EOF
