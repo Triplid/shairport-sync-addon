@@ -18,6 +18,10 @@ RUN apk add --no-cache \
     udev \
     libconfig-dev
 
+# Create avahi user and group if they don't exist
+RUN addgroup -S avahi 2>/dev/null || true && \
+    adduser -S -D -G avahi avahi 2>/dev/null || true
+
 # Create directories for Avahi and D-Bus
 RUN mkdir -p /var/run/dbus && \
     mkdir -p /var/run/avahi-daemon && \
