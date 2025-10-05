@@ -16,7 +16,7 @@ RUN apk add --no-cache \
     alsa-lib-dev \
     alsa-utils \
     alsa-plugins \
-    pulseaudio-libs \
+    libpulse \
     git \
     build-base \
     cmake \
