@@ -1,6 +1,6 @@
 name: "Shairport Sync MQTT"
 description: "Shairport Sync with MQTT for AirPlay (full audio + MQTT support)"
-version: "1.0.8"
+version: "1.0.9"
 slug: "shairport_sync_mqtt"
 init: false
 arch:
@@ -10,24 +10,23 @@ boot: auto
 host_network: true
 audio: true
 udev: true
-
+devices:
+  - /dev/snd:/dev/snd:rwm
 map:
   - config:rw
   - share:rw
-
 options:
   log_level: "debug"
-  device: "default"
+  audio_device: "hw:2,0"
   mqtt_enabled: true
   mqtt_host: "core-mosquitto"
   mqtt_port: 1883
   mqtt_username: "tripl"
   mqtt_password: "Fylhtq3120"
   mqtt_topic_prefix: "shairport"
-
 schema:
   log_level: "list(debug|info|warn|error)"
-  device: "str"
+  audio_device: "device_audio?"
   mqtt_enabled: "bool"
   mqtt_host: "str"
   mqtt_port: "int"
