@@ -10,6 +10,10 @@ sleep 2
 # Проверяем ALSA устройства
 echo "Available ALSA devices:"
 aplay -l
+echo "ALSA init status:"
+alsactl init || echo "ALSA init failed: $?"
+echo "ALSA devices after init:"
+aplay -l
 
 # Проверяем конфиг
 CONFIG_PATH=/config/shairport-sync.conf
@@ -37,7 +41,7 @@ mqtt = {
 };
 alsa = {
     enabled = "yes";
-    device = "plughw:2,0";
+    device = "hw:2,0";
     mixer_control_name = "PCM";
 };
 EOF
