@@ -10,6 +10,8 @@ boot: auto
 host_network: true
 audio: true
 udev: true
+devices:
+  - /dev/bus/usb
 
 map:
   - config:rw
